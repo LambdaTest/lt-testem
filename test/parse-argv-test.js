@@ -130,13 +130,46 @@ describe('parseArgv()', function() {
     });
   });
 
-  describe('tunnel', function() {
+  describe('connect', function() {
     it('defaults to true', function() {
       var result = _parseArgv([]);
-      expect(result.tunnel).to.equal(true);
+      expect(result.connect).to.equal(true);
+    });
+
+    it('can be set to false', function() {
+      var result = _parseArgv(['--no-connect']);
+      expect(result.connect).to.equal(false);
     });
   });
 
+  describe('connectRetries', function() {
+    it('defaults to 2', function() {
+      var result = _parseArgv([]);
+      expect(result.connectRetries).to.equal(2);
+    });
+
+    it('can be set to 42', function() {
+      var result = _parseArgv(['--connect-retries', '42']);
+      expect(result.connectRetries).to.equal(42);
+    });
+
+    it('can be set to 42 via alias', function() {
+      var result = _parseArgv(['-r', '42']);
+      expect(result.connectRetries).to.equal(42);
+    });
+  });
+
+  describe('attach', function() {
+    it('defaults to undefined', function() {
+      var result = _parseArgv([]);
+      expect(result.attach).to.equal(undefined);
+    });
+
+    it('can be set to true', function() {
+      var result = _parseArgv(['--attach']);
+      expect(result.attach).to.equal(true);
+    });
+  });
 
   describe('username', function() {
     it('defaults to undefined', function() {
